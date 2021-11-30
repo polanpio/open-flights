@@ -1,7 +1,29 @@
-import React from "react";
+import React, { useState, useEffect, Fragment } from "react";
+import axios from "axios";
 
 const Airlines = () => {
-  return <div>This is the Airlines#index view for this app</div>
+  const [airlines, setAirlines] = useState([])
+
+  useEffect(() => {
+    axios.get('/api/v1/airlines.json')
+      .then(res => {
+        setAirlines(res.data.data)
+      })
+      .catch(res => console.log(res))
+  }, [airlines.length])
+
+  const list = airlines.map(item => {
+    return (<li key={item.attributes.name}>{item.attributes.name}</li>)
+  })
+
+  return (
+    <Fragment>
+      <div>This is the Airlines#index view for this app</div>
+      <ul>
+        {list}
+      </ul>
+    </Fragment>
+  )
 }
 
 export default Airlines
