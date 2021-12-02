@@ -6,8 +6,8 @@ import Airline from './Airline'
 const App = () => {
   return (
     <Routes>
-      <Route exact path="//*" element={<Airlines />} />
-      <Route exact path="/airlines/:slug" element={<Airline />} />
+      <Route path="//*" element={<Airlines />} />
+      <Route path="/airlines/:slug" element={<Airline />} />
     </Routes>
   )
 }
