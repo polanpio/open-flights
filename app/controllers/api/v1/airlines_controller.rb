@@ -10,7 +10,7 @@ module Api
 
       def show
         airline = Airline.find_by(slug: params[:slug])
-        render json: AirlineSerializer.new(airline, options).serialized_json
+        render json: serializer(airline, options)
       end
 
       def create
@@ -51,6 +51,12 @@ module Api
 
       def airline_params
         params.require(:airline).permit(:name, :image_url)
+      end
+
+      def serializer(records, options = {})
+        AirlineSerializer
+          .new(records, options)
+          .serialized_json
       end
     end
   end
