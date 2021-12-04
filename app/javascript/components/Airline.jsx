@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMatch } from "react";
 import axios from "axios";
 import Header from "./Header"
 import styled from 'styled-components'
@@ -30,13 +30,17 @@ const Main = styled.div`
   padding-left: 60px;
 `
 
-const Airline = (props) => {
+const Airline = () => {
   const [airline, setAirline] = useState({})
   const [review, setReview] = useState({})
   const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
-    const slug = props.match.params.slug
+    // console.log({ props })
+    // const slug = props.match.params.slug
+    const slug = useMatch('/airlines/:slug')
+    console.log(slug)
+
     const url = `/api/v1/airlines/${slug}`
 
     axios.get(url)
