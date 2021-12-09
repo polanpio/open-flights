@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { useParams } from 'react-router-dom'
 import axios from "axios";
 import Header from "./Header"
+import ReviewForm from "./ReviewForm";
 import styled from 'styled-components'
 
 const Wrapper = styled.div`
@@ -47,24 +48,26 @@ const Airline = () => {
       })
     // .catch(res = console.log(res)) // You don't have access to the res variable here as it's outside the aboove .then call
   }, [])
+
   if (!loaded) {
     return <p>Loading...</p>
   }
 
-
   return (
     <Wrapper>
-      <Column>
-        <Main>
-          {
-            loaded && <Header attributes={airline.data.attributes} reviews={airline.included} />
-          }
-          <div className="reviews"></div>
-        </Main>
-      </Column>
-      <Column>
-        <div className="review-form"></div>
-      </Column>
+      {loaded &&
+        <Fragment>
+          <Column>
+            <Main>
+              <Header attributes={airline.data.attributes} reviews={airline.included} />
+              <div className="reviews"></div>
+            </Main>
+          </Column>
+          <Column>
+            <ReviewForm />
+          </Column>
+        </Fragment>
+      }
     </Wrapper>
   )
 }
