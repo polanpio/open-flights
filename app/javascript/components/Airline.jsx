@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useMatch } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from 'react-router-dom'
 import axios from "axios";
 import Header from "./Header"
 import styled from 'styled-components'
@@ -34,22 +35,21 @@ const Airline = () => {
   const [airline, setAirline] = useState({})
   const [review, setReview] = useState({})
   const [loaded, setLoaded] = useState(false)
+  const { slug } = useParams()
 
   useEffect(() => {
-    // console.log({ props })
-    // const slug = props.match.params.slug
-    const slug = useMatch('/airlines/:slug')
-    console.log(slug)
-
     const url = `/api/v1/airlines/${slug}`
-
     axios.get(url)
       .then(res => {
+        console.log(res)
         setAirline(res.data)
         setLoaded(true)
       })
-      .catch(res = console.log(res))
+    // .catch(res = console.log(res)) // You don't have access to the res variable here as it's outside the aboove .then call
   }, [])
+  if (!loaded) {
+    return <p>Loading...</p>
+  }
 
 
   return (
