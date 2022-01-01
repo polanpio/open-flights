@@ -53,6 +53,14 @@ const Airline = () => {
     return <p>Loading...</p>
   }
 
+  const handleChange = (e) => {
+    e.preventDefault()
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+  }
+
   return (
     <Wrapper>
       {loaded &&
@@ -64,7 +72,11 @@ const Airline = () => {
             </Main>
           </Column>
           <Column>
-            <ReviewForm />
+            <ReviewForm
+              handleChange={handleChange}
+              handleSubmit={handleSubmit}
+              attributes={airline.data.attributes}
+              review={review} />
           </Column>
         </Fragment>
       }

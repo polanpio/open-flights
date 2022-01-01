@@ -1,15 +1,15 @@
 import React from "react";
 
-const ReviewForm = () => {
+const ReviewForm = ({ handleSubmit, handleChange, review }) => {
   return (
     <div className="wrapper">
-      <form>
+      <form onSubmit={handleSubmit}>
         <div>Have an experience with [Airline name]? Share your review!</div>
         <div className="field">
-          <input type="text" name="title" placeholder="Review Title" />
+          <input onChange={handleChange} value={review.title} type="text" name="title" placeholder="Review Title" />
         </div>
         <div className="field">
-          <input type="text" name="description" placeholder="Review Description" />
+          <input onChange={handleChange} value={review.description} type="text" name="description" placeholder="Review Description" />
         </div>
         <div className="field">
           <div className="rating-container">
