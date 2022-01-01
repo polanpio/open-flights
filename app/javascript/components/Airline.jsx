@@ -55,10 +55,24 @@ const Airline = () => {
 
   const handleChange = (e) => {
     e.preventDefault()
+    setReview(Object.assign({}, review, { [e.target.name]: e.target.value }))
+    console.log('review:', review)
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
+
+    const csrfToken = document.querySelector('[name=csrf-token]').content
+    axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken
+
+    const airline_id = airline.data.id
+    axios.post('/api/v1/reviews', { review, airline_id })
+      .then(resp => {
+        const included = [...airline.included, resp.data.data]
+        setAirline(...airline, included)
+        setReview({ title: '', description: '', score: 0 })
+      })
+      .catch(resp => { })
   }
 
   return (
